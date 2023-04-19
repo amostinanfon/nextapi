@@ -53,7 +53,7 @@ export const authOptions: AuthOptions = {
     })
   ],
   pages: {
-    signIn: 'https://nextapi-fl2o.vercel.app/auth'
+    signIn: '/auth'
   },
   debug: process.env.NODE_ENV === 'development',
   adapter: PrismaAdapter(prismadb),
