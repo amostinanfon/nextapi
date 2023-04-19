@@ -44,10 +44,10 @@ const Auth = () => {
         email,
         password,
         redirect: false,
-        callbackUrl:'/'
+        callbackUrl:'https://vercel.com/amostinanfon/nextapi/'
       });
 
-      router.push('/profiles')
+      router.push('https://vercel.com/amostinanfon/nextapi/profiles')
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +55,7 @@ const Auth = () => {
 
   const register = useCallback(async () => {
     try {
-        await axios.post('/api/register',{
+        await axios.post('https://vercel.com/amostinanfon/nextapi/api/register',{
         email,
         name,
         password
