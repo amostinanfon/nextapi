@@ -22,7 +22,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (!session) {
     return {
       redirect: {
-        destination: 'https://vercel.com/amostinanfon/nextapi/auth',
+        destination: 'https://nextapi-rouge.vercel.app/auth',
         permanent: false,
       }
     }
@@ -51,7 +51,7 @@ const App = () => {
   const { data: currentUser } = useCurrentUser();
 
   const selectProfile = useCallback(() => {
-    router.push('https://vercel.com/amostinanfon/nextapi/');
+    router.push('https://nextapi-rouge.vercel.app/');
   }, [router]);
 
   return (
