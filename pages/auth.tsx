@@ -14,8 +14,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (session) {
     return {
       redirect: {
-        // destination: '/',
-        destination:'/',
+        destination:'https://nextapi-fl2o.vercel.app/',
         permanent: false,
       }
     }
@@ -45,10 +44,10 @@ const Auth = () => {
         email,
         password,
         redirect: false,
-        callbackUrl:'/'
+        callbackUrl:'https://nextapi-fl2o.vercel.app/'
       });
 
-      router.push('/profiles')
+      router.push('https://nextapi-fl2o.vercel.app/profiles')
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +55,7 @@ const Auth = () => {
 
   const register = useCallback(async () => {
     try {
-        await axios.post('/api/register',{
+        await axios.post('https://nextapi-fl2o.vercel.app/api/register',{
         email,
         name,
         password

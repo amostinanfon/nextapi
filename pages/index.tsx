@@ -16,7 +16,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (!session) {
     return {
       redirect: {
-        destination: '/auth',
+        destination: 'https://nextapi-fl2o.vercel.app/auth',
         permanent: false,
       }
     }
