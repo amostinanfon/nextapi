@@ -14,7 +14,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (session) {
     return {
       redirect: {
-        destination:'/',
+        destination:'https://nextapi-rouge.vercel.app/',
         permanent: false,
       }
     }

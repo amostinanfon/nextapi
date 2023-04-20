@@ -53,7 +53,7 @@ export const authOptions: AuthOptions = {
     })
   ],
   pages: {
-    signIn: 'https://vercel.com/amostinanfon/nextapi/auth'
+    signIn: 'hhttps://nextapi-rouge.vercel.app/auth'
   },
   debug: process.env.NODE_ENV === 'development',
   adapter: PrismaAdapter(prismadb),
