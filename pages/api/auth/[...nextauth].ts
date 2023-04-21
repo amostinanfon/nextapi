@@ -31,32 +31,32 @@ export const authOptions: AuthOptions = {
     }),
 
     //this is for email postmark
-    EmailProvider({
-      server: {
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT),
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASSWORD,
-        },
-      },
-      from: process.env.SMTP_FROM,
-      sendVerificationRequest: async ({ identifier, url, provider }) => {
-        const result = await postmarkClient.sendEmailWithTemplate({
-          TemplateId: parseInt("TEMPLATE-ID"),
-          To: identifier,
-          From: provider.from as string,
-          TemplateModel: {
-            action_url: url,
-            product_name: siteConfig.name,
-          },
-        })
+    // EmailProvider({
+    //   server: {
+    //     host: process.env.SMTP_HOST,
+    //     port: Number(process.env.SMTP_PORT),
+    //     auth: {
+    //       username: process.env.SMTP_USER,
+    //       password: process.env.SMTP_PASSWORD,
+    //     },
+    //   },
+    //   from: process.env.SMTP_FROM,
+    //   sendVerificationRequest: async ({ identifier, url, provider }) => {
+    //     const result = await postmarkClient.sendEmailWithTemplate({
+    //       TemplateId: parseInt("templateId"),
+    //       To: identifier,
+    //       From: provider.from as string,
+    //       TemplateModel: {
+    //         action_url: url,
+    //         product_name: siteConfig.name,
+    //       },
+    //     })
  
-        if (result.ErrorCode) {
-          throw new Error(result.Message)
-        }
-      },
-    }),
+    //     if (result.ErrorCode) {
+    //       throw new Error(result.Message)
+    //     }
+    //   },
+    //}),
     //here with pass credential : password and email and test if they match
     Credentials({
       id: 'credentials',

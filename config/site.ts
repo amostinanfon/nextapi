@@ -4,7 +4,8 @@ export const siteConfig: SiteConfig = {
   name: "Bolo",
   description:
     "Search, find and post a job",
-  url: "https://nextapi-rouge.vercel.app/",
+    url:'localhost:3000'
+//   url: "https://nextapi-rouge.vercel.app/",
 //   ogImage: "https://tx.shadcn.com/og.jpg",
 //   links: {
 //     twitter: "https://twitter.com/shadcn",
