@@ -15,15 +15,22 @@ const postmarkClient = new Client(process.env.POSTMARK_API_TOKEN || "")
 
 
 export const authOptions: AuthOptions = {
+
+  // Go ahead with providers
   providers: [
+
+    //this is for Github
     GithubProvider({
       clientId: process.env.GITHUB_ID || '',
       clientSecret: process.env.GITHUB_SECRET || '',
     }),
+    //tihs is for Google
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
+
+    //this is for email postmark
     EmailProvider({
       server: {
         host: process.env.SMTP_HOST,
@@ -50,6 +57,7 @@ export const authOptions: AuthOptions = {
         }
       },
     }),
+    //here with pass credential : password and email and test if they match
     Credentials({
       id: 'credentials',
       name: 'Credentials',
