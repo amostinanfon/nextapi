@@ -24,7 +24,7 @@ export const authOptions: AuthOptions = {
       clientId: process.env.GITHUB_ID || '',
       clientSecret: process.env.GITHUB_SECRET || '',
     }),
-    //tihs is for Google
+    //this is for Google
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
