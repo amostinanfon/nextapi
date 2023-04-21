@@ -2,9 +2,17 @@ import NextAuth, { AuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
+import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { siteConfig } from "@/config/site"
 import { compare } from 'bcrypt';
+import { Client } from "postmark"
 import prismadb from '@/libs/prismadb';
+
+
+const postmarkClient = new Client(process.env.POSTMARK_API_TOKEN || "")
+
+
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -15,6 +23,32 @@ export const authOptions: AuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    }),
+    EmailProvider({
+      server: {
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT),
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD,
+        },
+      },
+      from: process.env.SMTP_FROM,
+      sendVerificationRequest: async ({ identifier, url, provider }) => {
+        const result = await postmarkClient.sendEmailWithTemplate({
+          TemplateId: parseInt("TEMPLATE-ID"),
+          To: identifier,
+          From: provider.from as string,
+          TemplateModel: {
+            action_url: url,
+            product_name: siteConfig.name,
+          },
+        })
+ 
+        if (result.ErrorCode) {
+          throw new Error(result.Message)
+        }
+      },
     }),
     Credentials({
       id: 'credentials',

@@ -32,9 +32,11 @@
     "mongoose": "^6.9.2",
     "next": "^13.2.4",
     "next-auth": "^4.21.1",
+    "postmark": "^3.0.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
+    "siteconfig": "^1.1.0",
     "swr": "^2.0.3",
     "typescript": "4.9.5",
     "zustand": "^4.3.3"
