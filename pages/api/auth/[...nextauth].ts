@@ -1,33 +1,28 @@
-import NextAuth, { AuthOptions } from 'next-auth';
-import GithubProvider from 'next-auth/providers/github';
-import GoogleProvider from 'next-auth/providers/google';
-import Credentials from 'next-auth/providers/credentials';
+import NextAuth, { AuthOptions } from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
 import EmailProvider from "next-auth/providers/email";
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { siteConfig } from "@/config/site"
-import { compare } from 'bcrypt';
-import { Client } from "postmark"
-import prismadb from '@/libs/prismadb';
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { siteConfig } from "@/config/site";
+import { compare } from "bcrypt";
+import { Client } from "postmark";
+import prismadb from "@/libs/prismadb";
 
-
-const postmarkClient = new Client(process.env.POSTMARK_API_TOKEN || "")
-
-
+const postmarkClient = new Client(process.env.POSTMARK_API_TOKEN || "");
 
 export const authOptions: AuthOptions = {
-
   // Go ahead with providers
   providers: [
-
     //this is for Github
     GithubProvider({
-      clientId: process.env.GITHUB_ID || '',
-      clientSecret: process.env.GITHUB_SECRET || '',
+      clientId: process.env.GITHUB_ID || "",
+      clientSecret: process.env.GITHUB_SECRET || "",
     }),
     //this is for Google
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
     //this is for Email Postmark
     EmailProvider({
@@ -36,13 +31,12 @@ export const authOptions: AuthOptions = {
         port: process.env.EMAIL_SERVER_PORT,
         auth: {
           user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD
-        }
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
       },
-      from: process.env.EMAIL_FROM
+      from: process.env.EMAIL_FROM,
     }),
 
-    
     // this is for email postmark
     // EmailProvider({
     //   server: {
@@ -54,71 +48,75 @@ export const authOptions: AuthOptions = {
     //   }
     // },
     // from: process.env.EMAIL_FROM,
-      // sendVerificationRequest: async ({ identifier, url, provider }) => {
-      //   const result = await postmarkClient.sendEmailWithTemplate({
-      //     TemplateId: parseInt("templateId"),
-      //     To: identifier,
-      //     From: provider.from as string,
-      //     TemplateModel: {
-      //       action_url: url,
-      //       product_name: siteConfig.name,
-      //     },
-      //   })
- 
-      //   if (result.ErrorCode) {
-      //     throw new Error(result.Message)
-      //   }
-      // },
+    // sendVerificationRequest: async ({ identifier, url, provider }) => {
+    //   const result = await postmarkClient.sendEmailWithTemplate({
+    //     TemplateId: parseInt("templateId"),
+    //     To: identifier,
+    //     From: provider.from as string,
+    //     TemplateModel: {
+    //       action_url: url,
+    //       product_name: siteConfig.name,
+    //     },
+    //   })
+
+    //   if (result.ErrorCode) {
+    //     throw new Error(result.Message)
+    //   }
+    // },
     //}),
     //here with pass credential : password and email and test if they match
 
     Credentials({
-      id: 'credentials',
-      name: 'Credentials',
+      id: "credentials",
+      name: "Credentials",
       credentials: {
         email: {
-          label: 'Email',
-          type: 'text',
+          label: "Email",
+          type: "text",
         },
         password: {
-          label: 'Password',
-          type: 'password'
-        }
+          label: "Password",
+          type: "password",
+        },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error('Email and password required');
+          throw new Error("Email and password required");
         }
 
-        const user = await prismadb.user.findUnique({ where: {
-          email: credentials.email
-        }});
+        const user = await prismadb.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
 
         if (!user || !user.hashedPassword) {
-          throw new Error('Email does not exist');
+          throw new Error("Email does not exist");
         }
 
-        const isCorrectPassword = await compare(credentials.password, user.hashedPassword);
+        const isCorrectPassword = await compare(
+          credentials.password,
+          user.hashedPassword
+        );
 
         if (!isCorrectPassword) {
-          throw new Error('Incorrect password');
+          throw new Error("Incorrect password");
         }
 
         return user;
-      }
-    })
+      },
+    }),
   ],
   pages: {
-    signIn: 'https://nextapi-rouge.vercel.app/auth'
+    signIn: "https://nextapi-rouge.vercel.app/auth",
   },
-  debug: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === "development",
   adapter: PrismaAdapter(prismadb),
-  session: { strategy: 'jwt' },
+  session: { strategy: "jwt" },
   jwt: {
     secret: process.env.NEXTAUTH_JWT_SECRET,
   },
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);
-
