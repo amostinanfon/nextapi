@@ -4,12 +4,12 @@ import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { siteConfig } from "@/config/site";
+// import { siteConfig } from "@/config/site";
 import { compare } from "bcrypt";
-import { Client } from "postmark";
+// import { Client } from "postmark";
 import prismadb from "@/libs/prismadb";
 
-const postmarkClient = new Client(process.env.POSTMARK_API_TOKEN || "");
+// const postmarkClient = new Client(process.env.POSTMARK_API_TOKEN || "");
 
 export const authOptions: AuthOptions = {
   // Go ahead with providers
