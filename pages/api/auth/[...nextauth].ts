@@ -23,49 +23,7 @@ export const authOptions: AuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-    }),
-    //this is for Email Postmark
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
-      from: process.env.EMAIL_FROM,
-    }),
-
-    // this is for email postmark
-    // EmailProvider({
-    //   server: {
-    //   host: process.env.EMAIL_SERVER_HOST,
-    //   port: process.env.EMAIL_SERVER_PORT,
-    //   auth: {
-    //     user: process.env.EMAIL_SERVER_USER,
-    //     pass: process.env.EMAIL_SERVER_PASSWORD
-    //   }
-    // },
-    // from: process.env.EMAIL_FROM,
-    // sendVerificationRequest: async ({ identifier, url, provider }) => {
-    //   const result = await postmarkClient.sendEmailWithTemplate({
-    //     TemplateId: parseInt("templateId"),
-    //     To: identifier,
-    //     From: provider.from as string,
-    //     TemplateModel: {
-    //       action_url: url,
-    //       product_name: siteConfig.name,
-    //     },
-    //   })
-
-    //   if (result.ErrorCode) {
-    //     throw new Error(result.Message)
-    //   }
-    // },
-    //}),
-    //here with pass credential : password and email and test if they match
-
+    }),    
     Credentials({
       id: "credentials",
       name: "Credentials",
