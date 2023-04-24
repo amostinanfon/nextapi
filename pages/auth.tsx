@@ -5,9 +5,8 @@ import { getSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
-import { FaVoicemail } from 'react-icons/fa';
+// import { MdFacebook } from 'react-icons/md';
 
-// FcVoicemail
 
 import Input from '@/components/Input';
 
@@ -117,10 +116,6 @@ const Auth = () => {
               <div onClick={() => signIn('github', { callbackUrl: 'https://nextapi-rouge.vercel.app/profiles' })} 
               className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
                 <FaGithub size={32} />
-              </div>
-              <div onClick={() => signIn('email', { callbackUrl: 'https://nextapi-rouge.vercel.app/profiles' })} 
-              className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
-                <FaVoicemail size={32} />
               </div>
             </div>
             <p className="text-neutral-500 mt-12">
