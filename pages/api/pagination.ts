@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     //   skip: randomIndex
     });
 
-    console.log(randomMovies);
+    //console.log(randomMovies);
 
     return res.status(200).json(randomMovies);
   } catch (error) {
