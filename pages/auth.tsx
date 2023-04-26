@@ -49,7 +49,7 @@ const Auth = () => {
         callbackUrl:'https://nextapi-rouge.vercel.app/'
       });
 
-      router.push('https://nextapi-rouge.vercel.app/profiles')
+      router.push('https://nextapi-rouge.vercel.app/profiles');
     } catch (error) {
       console.log(error);
     }
