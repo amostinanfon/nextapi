@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       skip: randomIndex
     });
 
-    console.log(randomIndex);
+    console.log('Here is the randon number :',randomIndex);
 
     return res.status(200).json(randomMovies[0]);
   } catch (error) {
