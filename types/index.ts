@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+
 export interface MovieInterface {
   id: string;
   title: string;
@@ -18,4 +20,8 @@ export type SiteConfig = {
   //   twitter: string
   //   github: string
   // }
+}
+
+export interface UserPageProps {
+   users: User[]
 }
