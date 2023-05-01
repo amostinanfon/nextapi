@@ -9,7 +9,6 @@ import InfoModal from '@/components/InfoModal';
 import useMovieList from '@/hooks/useMovieList';
 import useFavorites from '@/hooks/useFavorites';
 import useInfoModalStore from '@/hooks/useInfoModalStore';
-import Paginate from './paginate';
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -42,7 +41,6 @@ const Home = () => {
         <MovieList title="Trending Now" data={movies} />
         <MovieList title="My List" data={favorites} />
       </div>
-      <Paginate dataP={[]} title={''} />
     </>
   )
 }

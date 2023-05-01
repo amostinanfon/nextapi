@@ -18,6 +18,8 @@ const Paginate: React.FC<MovieListProps> = ({ dataP, title }) => {
   
     const { data } = useSWR(`/api/movie?page=${pageIndex}`, fetcher);
 
+    console.log(data);
+
     if (isEmpty(data)) {
       return null;
     }
