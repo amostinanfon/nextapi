@@ -8,9 +8,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(405).end();
     }
 
-    await serverAuth(req, res);
+    // await serverAuth(req, res);
 
-    const users = await prismadb.user.findMany();
+    const users = await prismadb.user.findMany({
+      where: {
+        email: {
+          startsWith: 'amos',
+        },
+      },
+    })
 
     return res.status(200).json(users);
   } catch (error) {

@@ -8,9 +8,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(405).end();
     }
 
-    await serverAuth(req, res);
+    // await serverAuth(req, res);
 
     const { userId } = req.query;
+
+    console.log('userId type is : ', typeof(userId));
 
     if (typeof userId !== 'string') {
       throw new Error('Invalid Id');
@@ -20,13 +22,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error('Missing Id');
     }
 
-    const movies = await prismadb.movie.findUnique({
+    const userSingle = await prismadb.user.findUnique({
       where: {
         id: userId
+      },
+      select:{
+        email: true,
+        name: true
       }
     });
 
-    return res.status(200).json(movies);
+    return res.status(200).json(userSingle);
   } catch (error) {
     console.log(error);
     return res.status(500).end();

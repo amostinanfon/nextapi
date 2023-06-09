@@ -2,53 +2,52 @@ import { GetStaticPathsResult, GetStaticPropsResult } from "next"
 import useUsersAllPage from "@/hooks/useUserList";
 import useUserPerPage from "@/hooks/useOneUser";
 import { UserPageProps } from '../types/index';
+import React, { useState } from "react";
+// import { PageProps } from "../types/index";
+
+interface PageProps {
+  index: number;
+}
+
+const Page: React.FC<PageProps> = ({ index }) => {
+
+const { data } = useUserPerPage(index);
+
+
+     return (
+      data?.map(
+        (item : any) => 
+        <div key={item.id} className="text-lg">
+          {item.id.slice(7,12)}
+        </div>)
+     )
+
+}
 
 
 
-  export default function UserPage({ users }: UserPageProps) {
-    // Loop and render posts.
+  
+  const PagePerAmos: React.FC<PageProps> = () => { 
+
+    const [pageIndex, setPageIndex] = useState(1);
+
+    // console.log('pageIndex',pageIndex);
+
+ 
+  return (
+    <div className="flex justify-center bg-slate-50 h-[500px]">
+      <div className="text-black text-xl space-x-10 mt-10">
+        <div>
+          <Page index={pageIndex} />
+        </div>
+        <div style={{ display: 'none' }}><Page index={pageIndex + 1} /></div>
+        <button onClick={() => setPageIndex(pageIndex - 1)}>Previous</button>
+        <button onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
+      </div>
+    </div>
+  )
+      
   }
-  
-  export async function getStaticPaths(context: any): Promise<GetStaticPathsResult> {
 
-    // Get total number of users from API.
-    const totalPages = await useUsersAllPage() 
-    const numberOfPages = Math.ceil(Number (totalPages) / 5)
-  
-    // Build paths `blog/0`, `blog/1` ...etc.
-    const paths = Array(numberOfPages)
-      .fill(0)
-      .map((_, page) => ({
-        params: {
-          page: `${page + 1}`,
-        },
-      }))
-  
-    return {
-      paths,
-      fallback: false,
-    }
-  }
-  
-//   export async function getStaticProps(
-//     context : any
-//   ): Promise<GetStaticPropsResult<UserPageProps>> {
-//     // Call your API and get the posts for the current page.
-//     const users = await useUserPerPage({
-//       take: 10,
-//       offset: context.params.page ? 5 * context.params.page : 0,
-//     })
-  
-//     // if (!users.length) {
-//     //   return {
-//     //     notFound: true,
-//     //   }
-//     // }
-  
-//     // return {
-//     //   props: {
-//     //     users,
-//     //   },
-//     // }
-//   }
-  
+
+  export default PagePerAmos;

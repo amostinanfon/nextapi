@@ -25,3 +25,9 @@ export type SiteConfig = {
 export interface UserPageProps {
    users: User[]
 }
+
+
+export interface PageProps {
+  index: number
+  item: {}
+}
