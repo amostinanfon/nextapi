@@ -9,23 +9,53 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const { pageIndex } = req.query;
-  
-    let newPageIndex : number = Number(pageIndex)
+
+    let newPageIndex: number = Number(pageIndex)
+    console.log('newPageIndex :', newPageIndex);
 
 
-    // console.log('newPageIndex :',newPageIndex);
 
-      const users = await prismadb.user.findMany({
-        take: 3, // Page size
-      })
+   const numberOfElement = await prismadb.user.count();
+   const elementPerPage = 3;
+   const numberOfpage = Math.ceil(numberOfElement/elementPerPage);
 
-      const lastPostInResults = users[2] // Remember: zero-based index! :)
-      const myCursor = lastPostInResults.id // Example: 29
+
+   const users = await prismadb.user.findMany({
+    take: elementPerPage * newPageIndex
+   })
+
+  const lastPostInResults = users[elementPerPage * newPageIndex - 1] // Remember: zero-based index! :)
+  const myCursor = lastPostInResults.id // Example: 29
+
+
+  console.log(myCursor);
+if ( newPageIndex == 1){
+  return res.status(200).json(users);
+} 
+else {
+  const newUsers = await prismadb.user.findMany({
+    take: elementPerPage,
+    skip: 1,
+    cursor: {
+      id: myCursor
+    }
+  })
+
+  return res.status(200).json(newUsers)
+}
+
+
+    //   const lastPostInResults = users[1] // Remember: zero-based index! :)
+    //   const myCursor = lastPostInResults.id // Example: 29
+
+    //   console.log('myCursor', myCursor);
+
+    //   return res.status(200).json(users);
+    // } else if(newPageIndex >1 ){
+
+    // }
+
     
-      console.log(myCursor);
-    return res.status(200).json(users);
-   
-
 
     // await serverAuth(req, res);
 

@@ -12,7 +12,9 @@ interface PageProps {
 const Page: React.FC<PageProps> = ({ index }) => {
 
 const { data } = useUserPerPage(index);
+// const { data } = useUserPerPage();
 
+console.log(data);
 
      return (
       data?.map(
