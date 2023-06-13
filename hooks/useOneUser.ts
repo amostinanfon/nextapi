@@ -16,18 +16,6 @@ const useUserPerPage = (pageIndex?: any) => {
   }
 };
 
-// const useUserPerPage = () => {
-//   const { data, error, isLoading } = useSwr('/api/page', fetcher, {
-//     revalidateIfStale: false,
-//     revalidateOnFocus: false,
-//     revalidateOnReconnect: false,
-//   });
-//   return {
-//     data,
-//     error,
-//     isLoading
-//   }
-// };
 
 
 export default useUserPerPage;
