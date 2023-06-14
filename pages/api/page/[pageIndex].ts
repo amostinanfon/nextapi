@@ -18,6 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
    const elementPerPage = 3;
    const numberOfpage = Math.ceil(numberOfElement/elementPerPage);
 
+   console.log('count', numberOfElement);
 
    const users = await prismadb.user.findMany({
     take: elementPerPage * newPageIndex

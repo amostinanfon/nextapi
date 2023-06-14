@@ -3,13 +3,9 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import LinkedInProvider from "next-auth/providers/linkedin";
-// import FacebookProvider from "next-auth/providers/facebook";
-import Credentials from "next-auth/providers/credentials";
+ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-
-// import { siteConfig } from "@/config/site";
 import { compare } from "bcrypt";
-// import { Client } from "postmark";
 import prismadb from "@/libs/prismadb";
 
 
@@ -32,6 +28,18 @@ export const authOptions: AuthOptions = {
     LinkedInProvider({
       clientId: process.env.LINKEDIN_ID || "" ,
       clientSecret: process.env.LINKEDIN_SECRET || "",
+    }),
+
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD
+        }
+      },
+      from: process.env.EMAIL_FROM
     }),
     Credentials({
       id: "credentials",

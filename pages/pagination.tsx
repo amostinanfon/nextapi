@@ -1,5 +1,5 @@
 import { GetStaticPathsResult, GetStaticPropsResult } from "next"
-import useUsersAllPage from "@/hooks/useUserList";
+// import useUsersAllPage from "@/hooks/useUserList";
 import useUserPerPage from "@/hooks/useOneUser";
 import { UserPageProps } from '../types/index';
 import React, { useState } from "react";
