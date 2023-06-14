@@ -11,8 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { pageIndex } = req.query;
 
     let newPageIndex: number = Number(pageIndex)
-    console.log('newPageIndex :', newPageIndex);
-
+    // console.log('newPageIndex :', newPageIndex);
 
 
    const numberOfElement = await prismadb.user.count();
@@ -44,35 +43,6 @@ else {
   return res.status(200).json(newUsers)
 }
 
-
-    //   const lastPostInResults = users[1] // Remember: zero-based index! :)
-    //   const myCursor = lastPostInResults.id // Example: 29
-
-    //   console.log('myCursor', myCursor);
-
-    //   return res.status(200).json(users);
-    // } else if(newPageIndex >1 ){
-
-    // }
-
-    
-
-    // await serverAuth(req, res);
-
-    // const movies = await prismadb.user.findMany();
-
-    // const users = await prismadb.user.findMany({
-    //     // take: newPageIndex * 2, // Page size
-    //     // skip: 1, // Skip the cursor row
-    //     // cursor: {
-    //     //   id: myCursor, // The cursor - only on pages 2 and above
-    //     // },
-    //     // orderBy: {
-    //     //   id: 'asc', // Ordering results
-    //     // },
-    //   })
-
-    // return res.status(200).json(users);
 
 
   } catch (error) {
